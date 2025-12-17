@@ -12,6 +12,7 @@ const colorSwatches = document.querySelectorAll(".color-swatch");
 // Storage Configuration
 const STORAGE_KEY_MODE = "wallpaper_mode"; // 'online', 'offline', 'solid', 'none'
 const STORAGE_KEY_SOLID_COLOR = "wallpaper_solid_color";
+const STORAGE_KEY_NEXT_WALLPAPER = "wallpaper_next_url";
 
 // State
 let currentMode = "online";
@@ -83,8 +84,52 @@ function applyState() {
 }
 
 function loadOnlineWallpaper() {
-  const url = `https://picsum.photos/1920/1080?random=${Date.now()}`;
-  setImageBackground(url);
+  // 1. Try to load immediately from cache
+  const cachedUrl = localStorage.getItem(STORAGE_KEY_NEXT_WALLPAPER);
+  if (cachedUrl) {
+    setImageBackground(cachedUrl);
+    // 2. Fetch the NEXT wallpaper in background for the next time
+    fetchNextWallpaper(false);
+  } else {
+    // First run or cache empty: Fetch and apply immediately
+    fetchNextWallpaper(true);
+  }
+}
+
+async function fetchNextWallpaper(applyNow = false) {
+  try {
+    // Fetch from Bing Wallpaper Archive (Unofficial API)
+    // index=random: gets smooth random image from years of archive (not just daily)
+    // resolution=UHD: ensures 4K quality (highest possible)
+    const response = await fetch(
+      "https://bingw.jasonzeng.dev?resolution=UHD&index=random&format=json"
+    );
+
+    if (!response.ok) throw new Error("Wallpaper API failed");
+
+    const data = await response.json();
+    if (data && data.url) {
+      // Preload the image so it's ready in browser disk cache
+      const img = new Image();
+      img.src = data.url;
+
+      // Save for next time
+      localStorage.setItem(STORAGE_KEY_NEXT_WALLPAPER, data.url);
+
+      // If we needed it immediately (no cache)
+      if (applyNow) {
+        setImageBackground(data.url);
+      }
+    } else {
+      throw new Error("No URL in response");
+    }
+  } catch (e) {
+    console.warn("Wallpaper fetch failed:", e);
+    // Only fall back to offline if we were trying to display it NOW and failed
+    if (applyNow) {
+      loadOfflineWallpaper();
+    }
+  }
 }
 
 function loadOfflineWallpaper() {

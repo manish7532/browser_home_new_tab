@@ -3,9 +3,9 @@
 
 :root {
   --text-color: #ffffff;
-  --glass-bg: rgba(0, 0, 0, 0.5); /* Darker, more opaque background */
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-hover: rgba(0, 0, 0, 0.7); /* Darker on hover */
+ --glass-bg: rgba(0, 0, 0, 0.4); 
+   --glass-border: rgba(255, 255, 255, 0.15);
+   --glass-hover: rgba(0, 0, 0, 0.2); /* Darker on hover  */
   --accent-color: #4285f4; /* Google Blue */
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -155,25 +155,31 @@ body::before {
   border-radius: var(--radius-md);
   text-decoration: none;
   color: #fff;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+/*   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
+transition: 0.8s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
 .shortcut-card:hover {
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transform: translateY(-5px);
-  border-color: var(--glass-border);
+/*   background: var(--glass-bg); */
+/*   backdrop-filter: blur(8px); */
+/*   -webkit-backdrop-filter: blur(8px); */
+/*   transform: translateY(-5px); */
+/*   border-color: var(--glass-border); */
 }
 
 .shortcut-card:hover .icon-box {
-  transform: scale(1.5);
-  background: transparent;
-  backdrop-filter: none;
+   transform: scale(1.3); 
+   background: rgba(0, 0, 0, 0.3);
+/*   backdrop-filter: none;
   border: none;
-  box-shadow: none;
+   box-shadow: none; */
+}
+
+.shortcut-card:hover .shortcut-label {
+   transform: translateY(10px); 
+   opacity: 1;
 }
 
 .icon-box {
@@ -187,8 +193,8 @@ body::before {
   align-items: center;
   justify-content: center;
   padding: 10px;
-  transition: transform 0.3s ease, background 0.3s ease;
-  box-shadow: var(--shadow-sm);
+   transition: transform 0.3s ease, background 0.3s ease; 
+   box-shadow: var(--shadow-sm); 
 }
 
 .shortcut-label {
@@ -197,6 +203,7 @@ body::before {
   letter-spacing: 0.3px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   opacity: 0.9;
+  transition: transform 0.3s ease, background 0.3s ease; 
 }
 
 /* Meetings Section */
@@ -374,7 +381,7 @@ body::before {
   bottom: 84px;
   right: 24px;
   width: 320px;
-  background: rgba(20, 20, 20, 0.95);
+  background: rgba(20, 20, 20, 0.70);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);

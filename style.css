@@ -3,9 +3,9 @@
 
 :root {
   --text-color: #ffffff;
- --glass-bg: rgba(0, 0, 0, 0.4); 
-   --glass-border: rgba(255, 255, 255, 0.15);
-   --glass-hover: rgba(0, 0, 0, 0.2); /* Darker on hover  */
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-hover: rgba(255, 255, 255, 0.2); /* Darker on hover  */
   --accent-color: #4285f4; /* Google Blue */
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -30,7 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   background-color: #1a1a1a;
   background-size: cover;
   background-position: center;
@@ -95,19 +95,19 @@ body::before {
 
 .search-input {
   width: 100%;
-  padding: 16px 24px 16px 60px; /* adjusted padding for icon */
+  padding: 16px 24px 16px 60px;
   font-size: 1.1rem;
   font-family: "Outfit", sans-serif;
   color: #fff;
-  background: var(--glass-bg);
+  background: rgba(39, 38, 38, 0.8);
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  border-radius: 15px;
+  /* box-shadow: var(--shadow-sm); */
   outline: none;
   transition: all 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for legibility */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .search-input::placeholder {
@@ -116,8 +116,7 @@ body::before {
 }
 
 .search-input:focus {
-  background: rgba(0, 0, 0, 0.65);
-  box-shadow: var(--shadow-md), 0 0 0 2px rgba(255, 255, 255, 0.1);
+  background: rgb(39, 38, 38);
   border-color: rgba(255, 255, 255, 0.3);
 }
 
@@ -137,10 +136,9 @@ body::before {
 .shortcuts-grid {
   display: flex;
   justify-content: center;
-  gap: 32px;
   flex-wrap: wrap;
   width: 100%;
-  max-width: 700px;
+  max-width: 450px;
 }
 
 .shortcut-card {
@@ -150,36 +148,23 @@ body::before {
   justify-content: center;
   gap: 8px;
   padding: 10px;
-  width: 90px;
   background: transparent;
   border-radius: var(--radius-md);
   text-decoration: none;
   color: #fff;
-/*   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); */
-transition: 0.8s ease-in-out;
+  transition: 0.8s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
-.shortcut-card:hover {
-/*   background: var(--glass-bg); */
-/*   backdrop-filter: blur(8px); */
-/*   -webkit-backdrop-filter: blur(8px); */
-/*   transform: translateY(-5px); */
-/*   border-color: var(--glass-border); */
-}
-
 .shortcut-card:hover .icon-box {
-   transform: scale(1.3); 
-   background: rgba(0, 0, 0, 0.3);
-/*   backdrop-filter: none;
-  border: none;
-   box-shadow: none; */
+  transform: scale(1.3);
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .shortcut-card:hover .shortcut-label {
-   transform: translateY(10px); 
-   opacity: 1;
+  transform: translateY(10px);
+  opacity: 1;
 }
 
 .icon-box {
@@ -193,8 +178,8 @@ transition: 0.8s ease-in-out;
   align-items: center;
   justify-content: center;
   padding: 10px;
-   transition: transform 0.3s ease, background 0.3s ease; 
-   box-shadow: var(--shadow-sm); 
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .shortcut-label {
@@ -203,7 +188,7 @@ transition: 0.8s ease-in-out;
   letter-spacing: 0.3px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   opacity: 0.9;
-  transition: transform 0.3s ease, background 0.3s ease; 
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 /* Meetings Section */
@@ -352,7 +337,7 @@ transition: 0.8s ease-in-out;
 /* Settings Button */
 .settings-btn {
   position: fixed;
-  bottom: 24px;
+  top: 24px;
   right: 24px;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -378,10 +363,10 @@ transition: 0.8s ease-in-out;
 /* Settings Panel */
 .settings-panel {
   position: fixed;
-  bottom: 84px;
+  top: 84px;
   right: 24px;
   width: 320px;
-  background: rgba(20, 20, 20, 0.70);
+  background: rgba(20, 20, 20, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);

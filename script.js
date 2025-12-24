@@ -301,6 +301,32 @@ async function updateFavicon() {
   favicon.href = icon;
 }
 
+// --- Live Clock ---
+function updateClock() {
+    const now = new Date(); // Create a new Date object for the current time.
+
+    // Get time components
+    let hours = now.getHours();   // Returns 0-23.
+    let minutes = now.getMinutes();
+    let seconds = now.getSeconds();
+
+    // Add leading zeros if a number is single-digit
+    // The padStart() method is a simple way to ensure two digits.
+    hours = String(hours).padStart(2, '0');
+    minutes = String(minutes).padStart(2, '0');
+    // seconds = String(seconds).padStart(2, '0');
+
+    // Format the time string in HH:MM:SS format
+    const timeString = `${hours}:${minutes}`;
+
+    // Update the HTML element with the current time
+    document.getElementById("clock").textContent = timeString;
+}
+
+// Initial render and start ticking every second
+updateClock();
+setInterval(updateClock, 5000);
+
 // Start
 init();
 updateFavicon();

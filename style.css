@@ -55,8 +55,27 @@ body::before {
   pointer-events: none;
 }
 
+/* Clock Container */
+.clock-container {
+  position: fixed;
+  left: 24px;
+  width: 100%;
+  max-width: 200px;
+  padding: 20px;
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  user-select: none;
+}
+
+.clock {
+  font-size: 50px;
+  font-weight: 500;
+  display: block;
+}
+
 /* Main Container */
-.container {
+.main-container {
   width: 100%;
   max-width: 800px;
   padding: 20px;
@@ -70,7 +89,7 @@ body::before {
   scrollbar-width: none; /* Hide scrollbar */
 }
 
-.container::-webkit-scrollbar {
+.main-container::-webkit-scrollbar {
   display: none;
 }
 

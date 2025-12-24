@@ -16,11 +16,16 @@ const STORAGE_KEY_NEXT_WALLPAPER = "wallpaper_next_url";
 
 // State
 let currentMode = "online";
-let currentSolidColor = "#1a1a1a";
+let currentSolidColor = "#3b3b3f";
 
 // Default Offline Wallpapers (ensure these exist in 'walls/')
-const offlineWallpapers = ["walls/wallpaper.jpg"];
-const fallbackUrl = "walls/wallpaper.jpg";
+const OFFLINE_MIN = 1;
+const OFFLINE_MAX = 5;
+const OFFLINE_EXTENSIONS = ["jpg", "jpeg", "png", "jfif", "webp"];
+
+const offlineWallpapers = ["walls/1.png"];
+const fallbackUrl = "walls/1.png";
+let attempt = 0;
 
 // --- Initialization ---
 
@@ -97,48 +102,101 @@ function loadOnlineWallpaper() {
 }
 
 async function fetchNextWallpaper(applyNow = false) {
+  attempt++;
+
+  const endpoints = [
+    "https://bingw.jasonzeng.dev?resolution=UHD&index=random&format=json",
+    "https://bingw.jasonzeng.dev?resolution=1920x1080&index=random&format=json",
+  ];
+
   try {
-    // Fetch from Bing Wallpaper Archive (Unofficial API)
-    // index=random: gets smooth random image from years of archive (not just daily)
-    // resolution=UHD: ensures 4K quality (highest possible)
-    const response = await fetch(
-      "https://bingw.jasonzeng.dev?resolution=UHD&index=random&format=json"
-    );
+    for (const api of endpoints) {
+      const response = await fetch(api);
+      if (!response.ok) continue;
 
-    if (!response.ok) throw new Error("Wallpaper API failed");
+      const data = await response.json();
+      if (!data?.url) continue;
 
-    const data = await response.json();
-    if (data && data.url) {
-      // Preload the image so it's ready in browser disk cache
+      const isValid = await isImageUrlValid(data.url);
+
+      if (!isValid) {
+        console.warn("Invalid Bing image URL skipped:", data.url);
+        continue;
+      }
+
+      // Preload image
       const img = new Image();
       img.src = data.url;
 
-      // Save for next time
       localStorage.setItem(STORAGE_KEY_NEXT_WALLPAPER, data.url);
 
       // If we needed it immediately (no cache)
       if (applyNow) {
         setImageBackground(data.url);
       }
-    } else {
-      throw new Error("No URL in response");
+      return; 
     }
+    throw new Error("All wallpaper sources failed");
   } catch (e) {
     console.warn("Wallpaper fetch failed:", e);
-    // Only fall back to offline if we were trying to display it NOW and failed
-    if (applyNow) {
+
+    localStorage.removeItem(STORAGE_KEY_NEXT_WALLPAPER);
+
+    if (attempt < 3) {
+      fetchNextWallpaper(applyNow);
+    } else {
       loadOfflineWallpaper();
     }
   }
 }
 
 function loadOfflineWallpaper() {
-  if (offlineWallpapers.length === 0) {
+  const randomIndex =
+    Math.floor(Math.random() * (OFFLINE_MAX - OFFLINE_MIN + 1)) + OFFLINE_MIN;
+
+  tryOfflineFormats(randomIndex, 0);
+}
+
+function tryOfflineFormats(index, extIndex) {
+  if (extIndex >= OFFLINE_EXTENSIONS.length) {
+    // Nothing worked → fallback
     setImageBackground(fallbackUrl);
     return;
   }
-  const index = Math.floor(Math.random() * offlineWallpapers.length);
-  setImageBackground(offlineWallpapers[index]);
+
+  const url = `walls/${index}.${OFFLINE_EXTENSIONS[extIndex]}`;
+
+  const img = new Image();
+  img.onload = () => {
+    body.style.backgroundImage = `url('${url}')`;
+    body.classList.add("loaded");
+  };
+
+  img.onerror = () => {
+    // Try next extension
+    tryOfflineFormats(index, extIndex + 1);
+  };
+
+  img.src = url;
+}
+
+async function isImageUrlValid(url, timeout = 6000) {
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
+
+    const res = await fetch(url, {
+      method: "HEAD",
+      mode: "cors",
+      signal: controller.signal,
+    });
+
+    clearTimeout(timer);
+
+    return res.ok && res.headers.get("content-type")?.startsWith("image/");
+  } catch {
+    return false;
+  }
 }
 
 function setImageBackground(url) {

@@ -2,6 +2,7 @@ export const KEYS = {
   MODE: "wallpaper_mode",
   SOLID: "wallpaper_solid_color",
   NEXT: "wallpaper_next_url",
+  SHORTCUTS: "shortcuts_list_v1",
 };
 
 export const Storage = {

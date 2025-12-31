@@ -386,6 +386,27 @@
       </div>
     </div>
 
+    <!-- Shortcut Modal -->
+    <div id="shortcut-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal">
+        <h3 id="modal-title">Add Shortcut</h3>
+        <form id="shortcut-form" class="modal-form">
+          <label>Label
+            <input id="shortcut-label" name="label" type="text" placeholder="YouTube" required />
+          </label>
+          <label>URL
+            <input id="shortcut-url" name="url" type="url" placeholder="https://example.com" required />
+          </label>
+
+          <div class="modal-actions">
+            <button type="button" class="btn cancel-btn">Cancel</button>
+            <button type="button" class="btn delete-btn hidden">Delete</button>
+            <button type="submit" class="btn primary save-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script type="module" src="main.js"></script>
   </body>
 </html>

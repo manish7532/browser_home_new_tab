@@ -12,6 +12,12 @@
     <link rel="icon" id="favicon" href="" />
   </head>
   <body id="body">
+    <div id="bg-wrap" aria-hidden="true">
+      <div id="bg-blur" class="bg-layer bg-blur"></div>
+      <div id="bg-full" class="bg-layer bg-full"></div>
+    </div>
+    <div class="photo-credit" id="photo-credit" aria-hidden="true"></div>
+
     <div class="clock-container">
       <span id="clock" class="clock"></span>
       <!-- <span id="date" class="date"></span> -->
@@ -156,6 +162,7 @@
           </div>
           <span class="shortcut-label">Gmail</span>
         </a>
+
         <a href="https://meet.google.com" class="shortcut-card">
           <div class="icon-box">
             <svg
@@ -202,6 +209,13 @@
             </svg>
           </div>
           <span class="shortcut-label">Meet</span>
+        </a>
+
+        <a id="addShortcut" class="shortcut-card">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="#fff" fill-rule="evenodd" d="M12 4a.85.85 0 0 0-.85.85v6.3h-6.3a.85.85 0 0 0 0 1.7h6.3v6.3a.85.85 0 0 0 1.7 0v-6.3h6.3a.85.85 0 0 0 0-1.7h-6.3v-6.3A.85.85 0 0 0 12 4" clip-rule="evenodd"/></svg>
+          </div>
+          <span class="shortcut-label">Add</span>
         </a>
       </div>
 
@@ -372,6 +386,6 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>

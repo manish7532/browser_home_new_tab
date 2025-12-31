@@ -346,16 +346,25 @@ body::before {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .shortcuts-grid {
-    gap: 16px;
+  .main-container {
+    position: relative;
+    top: 10%;
   }
 
-  .container {
-    gap: 32px;
+  .shortcuts-grid {
+    max-width: 100%;
+    min-width: 391px;
   }
 
   .meetings-container {
     width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .shortcuts-grid {
+    max-width: 100%;
+    min-width: 310px;
   }
 }
 

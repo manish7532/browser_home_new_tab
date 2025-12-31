@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "NT",
+  "name": "Bravify",
   "description": "A modern new tab homepage",
   "version": "0.0.1",
   "chrome_url_overrides": {

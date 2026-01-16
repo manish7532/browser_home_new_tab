@@ -3,9 +3,9 @@
 
 :root {
   --text-color: #ffffff;
-  --glass-bg: rgba(0, 0, 0, 0.5); /* Darker, more opaque background */
+  --glass-bg: rgba(255, 255, 255, 0.4);
   --glass-border: rgba(255, 255, 255, 0.15);
-  --glass-hover: rgba(0, 0, 0, 0.7); /* Darker on hover */
+  --glass-hover: rgba(255, 255, 255, 0.2); /* Darker on hover  */
   --accent-color: #4285f4; /* Google Blue */
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.4);
@@ -30,13 +30,65 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
   background-color: #1a1a1a;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  transition: background-image 0.5s ease-in-out;
 }
+
+/* Background layers for blur-up + crossfade */
+#bg-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: opacity 700ms cubic-bezier(0.2,0.9,0.2,1);
+  will-change: opacity, transform;
+}
+
+.bg-blur {
+  filter: blur(20px) saturate(0.9) contrast(0.95);
+  transform: scale(1.08);
+  opacity: 0.6;
+  z-index: -2;
+}
+
+.bg-full {
+  opacity: 0;
+  z-index: -1;
+}
+
+.bg-full.visible {
+  opacity: 1;
+}
+
+/* Photo credit */
+.photo-credit {
+  position: fixed;
+  left: 12px;
+  bottom: 10px;
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  z-index: 2;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  opacity: 0;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.photo-credit.visible {
+  opacity: 1;
+  transform: translateY(0);
+} 
 
 /* Reduced Overlay opacity slightly as we have darker elements now, or keep it to ensure bg doesn't overpower */
 body::before {
@@ -55,8 +107,27 @@ body::before {
   pointer-events: none;
 }
 
+/* Clock Container */
+.clock-container {
+  position: fixed;
+  left: 24px;
+  width: 100%;
+  max-width: 200px;
+  padding: 20px;
+  font-size: 2rem;
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  user-select: none;
+}
+
+.clock {
+  font-size: 50px;
+  font-weight: 500;
+  display: block;
+}
+
 /* Main Container */
-.container {
+.main-container {
   width: 100%;
   max-width: 800px;
   padding: 20px;
@@ -70,14 +141,15 @@ body::before {
   scrollbar-width: none; /* Hide scrollbar */
 }
 
-.container::-webkit-scrollbar {
+.main-container::-webkit-scrollbar {
   display: none;
 }
 
 /* Search Bar */
 .search-container {
   width: 100%;
-  max-width: 600px;
+  max-width: 415px;
+  max-height: 47px;
   position: relative;
   transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -85,6 +157,10 @@ body::before {
 .search-container:hover,
 .search-container:focus-within {
   transform: scale(1.02);
+}
+
+.search-container:hover body {
+  overlay: rgba(39, 38, 38, 0.8);
 }
 
 .search-form {
@@ -95,36 +171,36 @@ body::before {
 
 .search-input {
   width: 100%;
-  padding: 16px 24px 16px 60px; /* adjusted padding for icon */
+  padding: 16px 24px 16px 60px;
   font-size: 1.1rem;
   font-family: "Outfit", sans-serif;
-  color: #fff;
-  background: var(--glass-bg);
+  color: #d2d2d2ad;
+  /* background: rgba(39, 38, 38, 0.8); */
+  background: #1b1b1fdc;
   border: 1px solid var(--glass-border);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
+  border-radius: 15px;
   outline: none;
   transition: all 0.3s ease;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for legibility */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
 .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgb(133, 133, 133);
+  font-size: small;
   text-shadow: none;
 }
 
 .search-input:focus {
-  background: rgba(0, 0, 0, 0.65);
-  box-shadow: var(--shadow-md), 0 0 0 2px rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: #1b1b1f;
+  /* border-color: rgba(255, 255, 255, 0.3); */
 }
 
 .search-icon {
   position: absolute;
   left: 20px;
-  top: 50%;
+  top: 60%;
   transform: translateY(-50%);
   pointer-events: none;
   display: flex;
@@ -137,7 +213,6 @@ body::before {
 .shortcuts-grid {
   display: flex;
   justify-content: center;
-  gap: 32px;
   flex-wrap: wrap;
   width: 100%;
   max-width: 700px;
@@ -150,31 +225,123 @@ body::before {
   justify-content: center;
   gap: 8px;
   padding: 10px;
-  width: 90px;
   background: transparent;
   border-radius: var(--radius-md);
   text-decoration: none;
   color: #fff;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: 0.8s ease-in-out;
   cursor: pointer;
   border: 1px solid transparent;
 }
 
-.shortcut-card:hover {
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transform: translateY(-5px);
-  border-color: var(--glass-border);
+.shortcut-card:hover .icon-box {
+  transform: scale(1.25);
+  background: rgba(255, 255, 255, 0.12);
 }
 
-.shortcut-card:hover .icon-box {
-  transform: scale(1.5);
-  background: transparent;
-  backdrop-filter: none;
-  border: none;
-  box-shadow: none;
+.shortcut-card:hover .shortcut-label {
+  transform: translateY(8px);
+  opacity: 1;
 }
+
+/* Edit button overlay on each shortcut */
+.shortcut-card .favicon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: block;
+}
+
+/* Letter-avatar fallback when favicon not available */
+.letter-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #fff;
+  font-size: 14px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 20px;
+}
+
+.modal-overlay.hidden {
+  display: none;
+}
+
+.modal {
+  width: 420px;
+  max-width: calc(100% - 48px);
+  background: rgba(20,20,20,0.9);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+.modal h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.05rem;
+}
+
+.modal-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.modal-form input[type="text"], .modal-form input[type="url"] {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: #fff;
+  outline: none;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: #fff;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--accent-color);
+  border-color: rgba(66,133,244,0.4);
+}
+
+.btn.delete-btn {
+  background: rgba(196, 30, 58, 0.9);
+  border-color: rgba(196,30,58,0.6);
+}
+
+.btn.hidden { display: none; }
 
 .icon-box {
   width: 56px;
@@ -191,12 +358,15 @@ body::before {
   box-shadow: var(--shadow-sm);
 }
 
+.icon-box svg { width: 100%; height: 100%; display: block; }
+
 .shortcut-label {
   font-size: 0.85rem;
   font-weight: 500;
   letter-spacing: 0.3px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
   opacity: 0.9;
+  transition: transform 0.3s ease, background 0.3s ease;
 }
 
 /* Meetings Section */
@@ -329,12 +499,14 @@ body::before {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .shortcuts-grid {
-    gap: 16px;
+  .main-container {
+    position: relative;
+    top: 10%;
   }
 
-  .container {
-    gap: 32px;
+  .shortcuts-grid {
+    max-width: 100%;
+    min-width: 391px;
   }
 
   .meetings-container {
@@ -342,17 +514,24 @@ body::before {
   }
 }
 
+@media (max-width: 390px) {
+  .shortcuts-grid {
+    max-width: 100%;
+    min-width: 310px;
+  }
+}
+
 /* Settings Button */
 .settings-btn {
   position: fixed;
-  bottom: 24px;
+  top: 24px;
   right: 24px;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
+  background: rgba(39, 38, 38, 0);
+  border: 0px solid var(--glass-border);
   color: #fff;
-  width: 48px;
-  height: 48px;
+  width: 38px;
+  backdrop-filter: blur(12px);
+  height: 38px;
   border-radius: var(--radius-full);
   display: flex;
   align-items: center;
@@ -360,21 +539,21 @@ body::before {
   cursor: pointer;
   transition: all 0.3s ease;
   z-index: 100;
-  box-shadow: var(--shadow-sm);
 }
 
 .settings-btn:hover {
-  background: var(--glass-hover);
+  /* background: rgba(39, 38, 38, 0.6); */
   transform: rotate(45deg);
+  opacity: 1;
 }
 
 /* Settings Panel */
 .settings-panel {
   position: fixed;
-  bottom: 84px;
+  top: 84px;
   right: 24px;
   width: 320px;
-  background: rgba(20, 20, 20, 0.95);
+  background: rgba(20, 20, 20, 0.7);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
   border: 1px solid var(--glass-border);
@@ -522,4 +701,22 @@ body::before {
 .color-swatch.active {
   border-color: #fff;
   transform: scale(1.15);
+}
+
+/* Small tweaks for the photo credit to appear above bg */
+.photo-credit { /* fallback in case earlier insertion didn't apply */
+  position: fixed;
+  left: 12px;
+  bottom: 10px;
+  color: rgba(255,255,255,0.8);
+  font-size: 11px;
+  z-index: 2;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  opacity: 0;
+  transition: opacity 300ms ease, transform 300ms ease;
+}
+
+.photo-credit.visible {
+  opacity: 1;
+  transform: translateY(0);
 }

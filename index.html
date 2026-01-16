@@ -12,7 +12,213 @@
     <link rel="icon" id="favicon" href="" />
   </head>
   <body id="body">
-    <div class="container">
+    <div id="bg-wrap" aria-hidden="true">
+      <div id="bg-blur" class="bg-layer bg-blur"></div>
+      <div id="bg-full" class="bg-layer bg-full"></div>
+    </div>
+    <div class="photo-credit" id="photo-credit" aria-hidden="true"></div>
+
+    <div class="clock-container">
+      <span id="clock" class="clock"></span>
+      <!-- <span id="date" class="date"></span> -->
+    </div>
+
+    <div class="main-container">
+      <!-- Shortcuts -->
+      <div class="shortcuts-grid">
+        <a href="https://www.youtube.com" class="shortcut-card">
+          <div class="icon-box">
+            <svg
+              width="100%"
+              height="100%"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
+                fill="#FF0000"
+              />
+            </svg>
+          </div>
+          <span class="shortcut-label">YouTube</span>
+        </a>
+
+        <a href="https://music.youtube.com" class="shortcut-card">
+          <div class="icon-box">
+            <svg
+              viewBox="0 0 100 100"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+            >
+              <!-- DEFINITIONS -->
+              <defs>
+                <mask id="playCutout">
+                  <!-- Everything visible by default -->
+                  <rect x="0" y="0" width="100" height="100" fill="white" />
+
+                  <!-- Triangle hole -->
+                  <path
+                    d="M41.055,52.528c-0.001,2.575,0.001,7.867,0,10.46
+           c0,0,21.802-13.417,21.802-13.417
+           L41.055,37.272V52.528z"
+                    fill="black"
+                  />
+                </mask>
+              </defs>
+
+              <!-- RED CIRCLE WITH MASK APPLIED -->
+              <g mask="url(#playCutout)">
+                <path
+                  fill="#FF0000"
+                  d="M50,2.5C23.766,2.5,2.5,23.823,2.5,50.126
+         c2.502,63.175,92.507,63.157,95-0.001
+         C97.5,23.823,76.233,2.5,50,2.5z
+         M50,77.399c-15.036,0-27.27-12.233-27.27-27.27
+         c0.74-18.662,14.654-27.134,27.269-27.134
+         c0.001,0,0.001,0,0.002,0
+         c12.616,0.001,26.531,8.473,27.267,27.073
+         C77.27,65.167,65.036,77.399,50,77.399z"
+                />
+
+                <path
+                  fill="#FF0000"
+                  d="M50.002,26.103c-15.946-0.001-23.704,12.486-24.165,24.088
+         C25.838,63.453,36.677,74.292,50,74.292
+         S74.162,63.453,74.162,50.13
+         C73.705,38.591,65.948,26.105,50.002,26.103z"
+                />
+              </g>
+            </svg>
+          </div>
+          <span class="shortcut-label">YT Music</span>
+        </a>
+
+        <a href="https://chatgpt.com" class="shortcut-card">
+          <div class="icon-box">
+            <!-- OpenAI / ChatGPT Logo -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              shape-rendering="geometricPrecision"
+              text-rendering="geometricPrecision"
+              image-rendering="optimizeQuality"
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              viewBox="0 0 512 509.639"
+            >
+              <path
+                fill="#fff"
+                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.613-115.613 115.613H115.612C52.026 509.64 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z"
+              />
+              <path
+                fill-rule="nonzero"
+                d="M412.037 221.764a90.834 90.834 0 004.648-28.67 90.79 90.79 0 00-12.443-45.87c-16.37-28.496-46.738-46.089-79.605-46.089-6.466 0-12.943.683-19.264 2.04a90.765 90.765 0 00-67.881-30.515h-.576c-.059.002-.149.002-.216.002-39.807 0-75.108 25.686-87.346 63.554-25.626 5.239-47.748 21.31-60.682 44.03a91.873 91.873 0 00-12.407 46.077 91.833 91.833 0 0023.694 61.553 90.802 90.802 0 00-4.649 28.67 90.804 90.804 0 0012.442 45.87c16.369 28.504 46.74 46.087 79.61 46.087a91.81 91.81 0 0019.253-2.04 90.783 90.783 0 0067.887 30.516h.576l.234-.001c39.829 0 75.119-25.686 87.357-63.588 25.626-5.242 47.748-21.312 60.682-44.033a91.718 91.718 0 0012.383-46.035 91.83 91.83 0 00-23.693-61.553l-.004-.005zM275.102 413.161h-.094a68.146 68.146 0 01-43.611-15.8 56.936 56.936 0 002.155-1.221l72.54-41.901a11.799 11.799 0 005.962-10.251V241.651l30.661 17.704c.326.163.55.479.596.84v84.693c-.042 37.653-30.554 68.198-68.21 68.273h.001zm-146.689-62.649a68.128 68.128 0 01-9.152-34.085c0-3.904.341-7.817 1.005-11.663.539.323 1.48.897 2.155 1.285l72.54 41.901a11.832 11.832 0 0011.918-.002l88.563-51.137v35.408a1.1 1.1 0 01-.438.94l-73.33 42.339a68.43 68.43 0 01-34.11 9.12 68.359 68.359 0 01-59.15-34.11l-.001.004zm-19.083-158.36a68.044 68.044 0 0135.538-29.934c0 .625-.036 1.731-.036 2.5v83.801l-.001.07a11.79 11.79 0 005.954 10.242l88.564 51.13-30.661 17.704a1.096 1.096 0 01-1.034.093l-73.337-42.375a68.36 68.36 0 01-34.095-59.143 68.412 68.412 0 019.112-34.085l-.004-.003zm251.907 58.621l-88.563-51.137 30.661-17.697a1.097 1.097 0 011.034-.094l73.337 42.339c21.109 12.195 34.132 34.746 34.132 59.132 0 28.604-17.849 54.199-44.686 64.078v-86.308c.004-.032.004-.065.004-.096 0-4.219-2.261-8.119-5.919-10.217zm30.518-45.93c-.539-.331-1.48-.898-2.155-1.286l-72.54-41.901a11.842 11.842 0 00-5.958-1.611c-2.092 0-4.15.558-5.957 1.611l-88.564 51.137v-35.408l-.001-.061a1.1 1.1 0 01.44-.88l73.33-42.303a68.301 68.301 0 0134.108-9.129c37.704 0 68.281 30.577 68.281 68.281a68.69 68.69 0 01-.984 11.545v.005zm-191.843 63.109l-30.668-17.704a1.09 1.09 0 01-.596-.84v-84.692c.016-37.685 30.593-68.236 68.281-68.236a68.332 68.332 0 0143.689 15.804 63.09 63.09 0 00-2.155 1.222l-72.54 41.9a11.794 11.794 0 00-5.961 10.248v.068l-.05 102.23zm16.655-35.91l39.445-22.782 39.444 22.767v45.55l-39.444 22.767-39.445-22.767v-45.535z"
+              />
+            </svg>
+          </div>
+          <span class="shortcut-label">ChatGPT</span>
+        </a>
+
+        <a href="https://mail.google.com" class="shortcut-card">
+          <div class="icon-box">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Gmail"
+              role="img"
+              viewBox="0 0 512 512"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <rect width="512" height="512" rx="15%" fill="#ffffff"></rect>
+                <path
+                  d="M158 391v-142l-82-63V361q0 30 30 30"
+                  fill="#4285f4"
+                ></path>
+                <path
+                  d="M 154 248l102 77l102-77v-98l-102 77l-102-77"
+                  fill="#ea4335"
+                ></path>
+                <path
+                  d="M354 391v-142l82-63V361q0 30-30 30"
+                  fill="#34a853"
+                ></path>
+                <path
+                  d="M76 188l82 63v-98l-30-23c-27-21-52 0-52 26"
+                  fill="#c5221f"
+                ></path>
+                <path
+                  d="M436 188l-82 63v-98l30-23c27-21 52 0 52 26"
+                  fill="#fbbc04"
+                ></path>
+              </g>
+            </svg>
+          </div>
+          <span class="shortcut-label">Gmail</span>
+        </a>
+
+        <a href="https://meet.google.com" class="shortcut-card">
+          <div class="icon-box">
+            <svg
+              viewBox="0 0 32 32"
+              data-name="Layer 1"
+              id="Layer_1"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+            >
+              <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+              <g
+                id="SVGRepo_tracerCarrier"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></g>
+              <g id="SVGRepo_iconCarrier">
+                <path
+                  d="M24,21.45V25a2.0059,2.0059,0,0,1-2,2H9V21h9V16Z"
+                  fill="#00ac47"
+                ></path>
+                <polygon
+                  fill="#31a950"
+                  points="24 11 24 21.45 18 16 18 11 24 11"
+                ></polygon>
+                <polygon fill="#ea4435" points="9 5 9 11 3 11 9 5"></polygon>
+                <rect fill="#4285f4" height="11" width="6" x="3" y="11"></rect>
+                <path
+                  d="M24,7v4h-.5L18,16V11H9V5H22A2.0059,2.0059,0,0,1,24,7Z"
+                  fill="#ffba00"
+                ></path>
+                <path
+                  d="M9,21v6H5a2.0059,2.0059,0,0,1-2-2V21Z"
+                  fill="#0066da"
+                ></path>
+                <path
+                  d="M29,8.26V23.74a.9989.9989,0,0,1-1.67.74L24,21.45,18,16l5.5-5,.5-.45,3.33-3.03A.9989.9989,0,0,1,29,8.26Z"
+                  fill="#00ac47"
+                ></path>
+                <polygon
+                  fill="#188038"
+                  points="24 10.55 24 21.45 18 16 23.5 11 24 10.55"
+                ></polygon>
+              </g>
+            </svg>
+          </div>
+          <span class="shortcut-label">Meet</span>
+        </a>
+
+        <a id="addShortcut" class="shortcut-card">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path fill="#fff" fill-rule="evenodd" d="M12 4a.85.85 0 0 0-.85.85v6.3h-6.3a.85.85 0 0 0 0 1.7h6.3v6.3a.85.85 0 0 0 1.7 0v-6.3h6.3a.85.85 0 0 0 0-1.7h-6.3v-6.3A.85.85 0 0 0 12 4" clip-rule="evenodd"/></svg>
+          </div>
+          <span class="shortcut-label">Add</span>
+        </a>
+      </div>
+
       <!-- Search Bar -->
       <div class="search-container">
         <span class="search-icon">
@@ -50,112 +256,19 @@
             type="text"
             name="q"
             class="search-input"
-            placeholder="Search Google..."
+            placeholder="Search the web"
             autocomplete="off"
             autofocus
           />
         </form>
-      </div>
-
-      <!-- Shortcuts -->
-      <div class="shortcuts-grid">
-        <a href="https://www.youtube.com" class="shortcut-card">
-          <div class="icon-box">
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"
-                fill="#FF0000"
-              />
-            </svg>
-          </div>
-          <span class="shortcut-label">YouTube</span>
-        </a>
-
-        <a href="https://music.youtube.com" class="shortcut-card">
-          <div class="icon-box">
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
-                fill="#FF0000"
-              />
-            </svg>
-          </div>
-          <span class="shortcut-label">YT Music</span>
-        </a>
-
-        <a href="https://chatgpt.com" class="shortcut-card">
-          <div class="icon-box">
-            <!-- OpenAI / ChatGPT Logo -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              shape-rendering="geometricPrecision"
-              text-rendering="geometricPrecision"
-              image-rendering="optimizeQuality"
-              fill-rule="evenodd"
-              clip-rule="evenodd"
-              viewBox="0 0 512 509.639"
-            >
-              <path
-                fill="#fff"
-                d="M115.612 0h280.775C459.974 0 512 52.026 512 115.612v278.415c0 63.587-52.026 115.613-115.613 115.613H115.612C52.026 509.64 0 457.614 0 394.027V115.612C0 52.026 52.026 0 115.612 0z"
-              />
-              <path
-                fill-rule="nonzero"
-                d="M412.037 221.764a90.834 90.834 0 004.648-28.67 90.79 90.79 0 00-12.443-45.87c-16.37-28.496-46.738-46.089-79.605-46.089-6.466 0-12.943.683-19.264 2.04a90.765 90.765 0 00-67.881-30.515h-.576c-.059.002-.149.002-.216.002-39.807 0-75.108 25.686-87.346 63.554-25.626 5.239-47.748 21.31-60.682 44.03a91.873 91.873 0 00-12.407 46.077 91.833 91.833 0 0023.694 61.553 90.802 90.802 0 00-4.649 28.67 90.804 90.804 0 0012.442 45.87c16.369 28.504 46.74 46.087 79.61 46.087a91.81 91.81 0 0019.253-2.04 90.783 90.783 0 0067.887 30.516h.576l.234-.001c39.829 0 75.119-25.686 87.357-63.588 25.626-5.242 47.748-21.312 60.682-44.033a91.718 91.718 0 0012.383-46.035 91.83 91.83 0 00-23.693-61.553l-.004-.005zM275.102 413.161h-.094a68.146 68.146 0 01-43.611-15.8 56.936 56.936 0 002.155-1.221l72.54-41.901a11.799 11.799 0 005.962-10.251V241.651l30.661 17.704c.326.163.55.479.596.84v84.693c-.042 37.653-30.554 68.198-68.21 68.273h.001zm-146.689-62.649a68.128 68.128 0 01-9.152-34.085c0-3.904.341-7.817 1.005-11.663.539.323 1.48.897 2.155 1.285l72.54 41.901a11.832 11.832 0 0011.918-.002l88.563-51.137v35.408a1.1 1.1 0 01-.438.94l-73.33 42.339a68.43 68.43 0 01-34.11 9.12 68.359 68.359 0 01-59.15-34.11l-.001.004zm-19.083-158.36a68.044 68.044 0 0135.538-29.934c0 .625-.036 1.731-.036 2.5v83.801l-.001.07a11.79 11.79 0 005.954 10.242l88.564 51.13-30.661 17.704a1.096 1.096 0 01-1.034.093l-73.337-42.375a68.36 68.36 0 01-34.095-59.143 68.412 68.412 0 019.112-34.085l-.004-.003zm251.907 58.621l-88.563-51.137 30.661-17.697a1.097 1.097 0 011.034-.094l73.337 42.339c21.109 12.195 34.132 34.746 34.132 59.132 0 28.604-17.849 54.199-44.686 64.078v-86.308c.004-.032.004-.065.004-.096 0-4.219-2.261-8.119-5.919-10.217zm30.518-45.93c-.539-.331-1.48-.898-2.155-1.286l-72.54-41.901a11.842 11.842 0 00-5.958-1.611c-2.092 0-4.15.558-5.957 1.611l-88.564 51.137v-35.408l-.001-.061a1.1 1.1 0 01.44-.88l73.33-42.303a68.301 68.301 0 0134.108-9.129c37.704 0 68.281 30.577 68.281 68.281a68.69 68.69 0 01-.984 11.545v.005zm-191.843 63.109l-30.668-17.704a1.09 1.09 0 01-.596-.84v-84.692c.016-37.685 30.593-68.236 68.281-68.236a68.332 68.332 0 0143.689 15.804 63.09 63.09 0 00-2.155 1.222l-72.54 41.9a11.794 11.794 0 00-5.961 10.248v.068l-.05 102.23zm16.655-35.91l39.445-22.782 39.444 22.767v45.55l-39.444 22.767-39.445-22.767v-45.535z"
-              />
-            </svg>
-          </div>
-          <span class="shortcut-label">ChatGPT</span>
-        </a>
-
-        <a href="https://mail.google.com" class="shortcut-card">
-          <div class="icon-box">
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 48 48"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill="#4caf50"
-                d="M45,16.2l-5,2.75l-5,4.75v15.8c0,2.48,2.02,4.5,4.5,4.5h5c2.76,0,5-2.24,5-5v-18.75L45,16.2z"
-              />
-              <path
-                fill="#f44336"
-                d="M3,16.2l3.614,1.71L13,23.7V39.5c0,2.48-2.02,4.5-4.5,4.5h-5C2.24,44,0,41.76,0,39v-18.75L3,16.2z"
-              />
-              <path
-                fill="#fbc02d"
-                d="M43,21l-3-1.636V39c0,1.106-0.894,2-2,2H37v-7.143l-13-10L11,33.857V41H8c-1.106,0-2-0.894-2-2V19.364L3,21l-3-2V8l24,18L48,8v11L43,21z"
-              />
-              <path
-                fill="#2196f3"
-                d="M48,8v11l-5,2.75V8l-19,14.25L5,8v13.75L0,19V8c0-2.48,2.24-4.5,5-4.5h4c1.106,0,2.1.336,2.857.929l12.143,9.143l12.143-9.143C36.9,4.336,37.894,4,39,4h4C45.24,4,48,6.02,48,8z"
-              />
-            </svg>
-          </div>
-          <span class="shortcut-label">Gmail</span>
-        </a>
       </div>
     </div>
 
     <!-- Settings Button -->
     <button id="settings-btn" class="settings-btn" aria-label="Settings">
       <svg
-        width="24"
-        height="24"
+        width="20"
+        height="20"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -273,6 +386,27 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- Shortcut Modal -->
+    <div id="shortcut-modal" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal">
+        <h3 id="modal-title">Add Shortcut</h3>
+        <form id="shortcut-form" class="modal-form">
+          <label>Label
+            <input id="shortcut-label" name="label" type="text" placeholder="YouTube" required />
+          </label>
+          <label>URL
+            <input id="shortcut-url" name="url" type="url" placeholder="https://example.com" required />
+          </label>
+
+          <div class="modal-actions">
+            <button type="button" class="btn cancel-btn">Cancel</button>
+            <button type="button" class="btn delete-btn hidden">Delete</button>
+            <button type="submit" class="btn primary save-btn">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
   </body>
 </html>
